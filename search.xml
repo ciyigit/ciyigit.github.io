@@ -1,206 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>androidapp</title>
-    <url>/2019/12/12/androidapp/</url>
-    <content><![CDATA[<p>#1. 程序功能与设计思路<br>1.1设计目标及具有的功能 </p>
-<hr>
-<p>实现一个简单视频播放器,能播放本地的视频。主要使用连个Activity作为界面，第一个用于显示视频的信息，第二个用于播放视频和对视频的控制。</p>
-<p>在第一个activity中主要使用了ListView和AnimationDrawable显示帧动画显示，第二个Activity主要使用了VideoView、MediaController来播放和控制视频,并使用GestureDetector添加了相应的手势操作。</p>
-<h2 id="1-2界面效果图"><a href="#1-2界面效果图" class="headerlink" title="1.2界面效果图"></a>1.2界面效果图</h2><p><img src="./demo.jpg" alt="播放界面"></p>
-<img src="/2019/12/12/androidapp/demo.jpg" class="" title="This is an example image">
-
-<p><img src="./androidapp/demo2.jpg" alt=""><br><img src="./androidapp/demo1.jpg" alt=""></p>
-<h2 id="1-3框架结构图"><a href="#1-3框架结构图" class="headerlink" title="1.3框架结构图"></a>1.3框架结构图</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TB</span><br><span class="line"></span><br><span class="line">main[player主界面]--&gt;vinfo[视频信息管理]</span><br><span class="line">main--&gt;control[视频播放控制]</span><br><span class="line">vinfo--&gt;fresh[刷新列表]</span><br><span class="line">vinfo--&gt;animation[刷新的动画]</span><br><span class="line">vinfo--&gt;store[视频信息存储]</span><br><span class="line">vinfo--&gt;thread[异步线程刷新]</span><br><span class="line"></span><br><span class="line">control--&gt;pause[暂停]</span><br><span class="line">control--&gt;forward[快进]</span><br><span class="line">control--&gt;Rewind[快退]</span><br><span class="line">control--&gt;han[手势控制]</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="1-1课题意义及需求分析"><a href="#1-1课题意义及需求分析" class="headerlink" title="1.1课题意义及需求分析"></a>1.1课题意义及需求分析</h1><h2 id="1-1-1-课题意义"><a href="#1-1-1-课题意义" class="headerlink" title="1.1.1 课题意义"></a>1.1.1 课题意义</h2><p>随着科技的进步，人们的信息获取方式从文字到图片音频在到现在的视频。5G技术的到来，人们可以获取海量的视频资源，所以一个好的播放器能给用户带来好的用户体验。在高速网络下，给用户带来体验的好与差不在是视频缓冲带来的快慢，而是视频播放器本身的性能和易用性。虽然当前市面上已有许多好的播放器，但通过开发这个播放器能帮助我了解Android软件的开发流程，对这一个学期做一个总结。</p>
-<h2 id="1-1-2需求分析"><a href="#1-1-2需求分析" class="headerlink" title="1.1.2需求分析"></a>1.1.2需求分析</h2><p>(1) 系统能够找到并播放手机内的视频文件<br>(2) 系统具有安全性，独立性，可靠性<br>(3) 系统界面设计合理，符合用户的操作习惯，且在一定程度节省系统的开销</p>
-<h2 id="功能流程图"><a href="#功能流程图" class="headerlink" title="功能流程图"></a>功能流程图</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">e&#x3D;&gt;end: 结束</span><br><span class="line">clickApp&#x3D;&gt;operation: 点击图标</span><br><span class="line">cond&#x3D;&gt;condition: 数据库是否有文件</span><br><span class="line">readata&#x3D;&gt;operation: 读取数据库</span><br><span class="line">showlist&#x3D;&gt;operation: 显示视频信息</span><br><span class="line">clicItem&#x3D;&gt;operation: 点击视频项</span><br><span class="line">play&#x3D;&gt;operation: 播放视频</span><br><span class="line"></span><br><span class="line">refresh&#x3D;&gt;operation: 下拉刷新</span><br><span class="line">animation&#x3D;&gt;operation: 播放刷新动画&#x2F;存视频信息到数据库</span><br><span class="line">store&#x3D;&gt;operation: 存数据库</span><br><span class="line">showlist1&#x3D;&gt;operation: 显示视频信息到listView</span><br><span class="line"></span><br><span class="line">st-&gt;clickApp-&gt;cond</span><br><span class="line">cond(yes)-&gt;readata-&gt;showlist-&gt;clicItem-&gt;play-&gt;e</span><br><span class="line">cond(no)-&gt;refresh-&gt;animation-&gt;showlist1-&gt;clicItem</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-相关原理知识介绍"><a href="#2-相关原理知识介绍" class="headerlink" title="2. 相关原理知识介绍"></a>2. 相关原理知识介绍</h1><table>
-<thead>
-<tr>
-<th align="center">要求</th>
-<th align="center">是否实现</th>
-<th align="center">实现方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">界面</td>
-<td align="center">是</td>
-<td align="center">listView显示视频信息,videoView播放</td>
-</tr>
-<tr>
-<td align="center">事件处理</td>
-<td align="center">是</td>
-<td align="center">listViewOntouch等监听事件</td>
-</tr>
-<tr>
-<td align="center">Activity</td>
-<td align="center">是</td>
-<td align="center">两个activity,分别显示和播放功能</td>
-</tr>
-<tr>
-<td align="center">Intent</td>
-<td align="center">是</td>
-<td align="center">两个activity之间传值(视频信息)</td>
-</tr>
-<tr>
-<td align="center">资源</td>
-<td align="center">是</td>
-<td align="center">各种图标和动画资源</td>
-</tr>
-<tr>
-<td align="center">图像处理</td>
-<td align="center">是</td>
-<td align="center">在刷新时,使用Frame animation实现动画</td>
-</tr>
-<tr>
-<td align="center">数据存储</td>
-<td align="center">是</td>
-<td align="center">视频信息放在数据库中</td>
-</tr>
-<tr>
-<td align="center">手势</td>
-<td align="center">是</td>
-<td align="center">实现手势快进/快退</td>
-</tr>
-<tr>
-<td align="center">数据共享</td>
-<td align="center">是</td>
-<td align="center">打开系统提供的视频资源窗口</td>
-</tr>
-<tr>
-<td align="center">多媒体</td>
-<td align="center">是</td>
-<td align="center">视频的播放</td>
-</tr>
-<tr>
-<td align="center">广播</td>
-<td align="center">是</td>
-<td align="center">显示当前网络状况</td>
-</tr>
-<tr>
-<td align="center"><em>表2-1</em></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">表格2-1中介绍了本程序的所用到的技术以及在本程序中的实现方式</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p>##2.1  Android移动平台下的应用研究<br>Android 平台是 Google 于 2007 年 11 月推出的一种智能手机平台，它是一个由操作系统、中间件、用户友好界面和应用软件组成的，全面整合的移动”软件栈”。 自推出以来，Android 受到了业界的广泛关注。 目前 Google Android 平台的 SDK 已经更新到vesion-28，我们可以利用 SDK 中所提供的工具，开始为未 来的 Android 平台手机进行应用开发。 </p>
-<p>Android 基 于 Linux 2.6 内 核 来 提 供 系 统 的核心服务，如安全机制，内存管理，进程管理，网络堆栈和驱动型。 内核还作为硬件和其余的软件应用之间的一个抽象层。</p>
-<p>##2.2 Android关键技术研究</p>
-<p>Android的四大组件是：<strong>Activity、Service、Broadcast Receiver、Content Provider。</strong></p>
-<ol>
-<li>Activity 是一个应用组件，用户可与其提供的屏幕进行交互，以执行拨打电话、拍摄照片、发送电子邮件或查看地图等操作。 每个 Activity 都会获得一个用于绘制其用户界面的窗口。窗口通常会充满屏幕，但也可小于屏幕并浮动在其他窗口之上。<br>一个应用通常由多个彼此松散联系的 Activity 组成。 一般会指定应用中的某个 Activity 为“主”Activity，即首次启动应用时呈现给用户的那个 Activity。 而且每个 Activity 均可启动另一个 Activity，以便执行不同的操作。 每次新 Activity 启动时，前一 Activity 便会停止，但系统会在堆栈（“返回栈”）中保留该 Activity。 当新 Activity 启动时，系统会将其推送到返回栈上，并取得用户焦点。 返回栈遵循基本的“后进先出”堆栈机制，因此，当用户完成当前 Activity 并按“返回”按钮时，系统会从堆栈中将其弹出（并销毁），然后恢复前一 Activity。 （任务和返回栈文档中对返回栈有更详细的阐述。）<br>当一个 Activity 因某个新 Activity 启动而停止时，系统会通过该 Activity 的生命周期回调方法通知其这一状态变化。Activity 因状态变化—系统是创建 Activity、停止 Activity、恢复 Activity 还是销毁 Activity— 而收到的回调方法可能有若干种，每一种回调都会为您提供执行与该状态变化相应的特定操作的机会。 例如，停止时，您的 Activity 应释放任何大型对象，例如网络或数据库连接。 当 Activity 恢复时，您可以重新获取所需资源，并恢复执行中断的操作。 这些状态转变都是 Activity 生命周期的一部分。<br>本文的其余部分阐述有关如何创建和使用 Activity 的基础知识（包括对 Activity 生命周期工作方式的全面阐述），以便您正确管理各种 Activity 状态之间的转变。</li>
+    <title>冒泡排序C语言实现</title>
+    <url>/2019/12/12/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="冒泡算法排序"><a href="#冒泡算法排序" class="headerlink" title="冒泡算法排序"></a>冒泡算法排序</h1><blockquote>
+<p>冒泡算法是一种交换排序,每一个将最大/最小的数字 移动到末尾</p>
+</blockquote>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考:"></a>思考:</h2><ol>
+<li>假设有n个数,每次遍历将最大/最小的数字交换到最后.</li>
+<li>对剩下的n-1个数重复1的步骤.</li>
+<li>当只剩下一个数字,或者某次遍历过程未发生交换时,排序结束.</li>
 </ol>
-<hr>
-<ol start="2">
-<li>Service是Android中实现程序后台运行的解决方案，非常适合用于去执行哪些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程当中，而是依赖与创建服务时所在的应用程序进程。只能在后台运行，并且可以和其他组件进行交互。<br>Service可以在很多场合使用，比如播放多媒体的时候用户启动了其他Activity，此时要在后台继续播放；比如检测SD卡上文件的变化；比如在后台记录你的地理信息位置的改变等等，总之服务是藏在后台的。<br>服务不会自动开启线程，我们需要在服务的内部手动创建子线程，并在这里执行具体的任务。</li>
-</ol>
-<hr>
-<ol start="3">
-<li><p>Broadcast（广播）是一种广泛应用在应用程序之间传输信息的机制，而BroadcastReceiver（广播接收器）则是用于接收来自系统和应用的广播对并对其进行响应的组件。Android提供了一套完整的API，允许应用程序自由地发送和接收广播，其中又用到可以传递信息的Intent。</p>
-<hr>
-</li>
-<li><p>　　ContentProvider可以理解为一个Android应用对外开放的接口，只要是符合它所定义的Uri格式的请求，均可以正常访问执行操作。其他的Android应用可以使用ContentResolver对象通过与ContentProvider同名的方法请求执行，被执行的就是ContentProvider中的同名方法。所以ContentProvider很多对外可以访问的方法，在ContentResolver中均有同名的方法</p>
-</li>
-</ol>
-<p>#3. 视频播放器程序具体实现<br>##3.1  视频播放程序的工程目录<br>@import “./android/工程目录.png” {height=”500px”}</p>
-<p><em>图3_1工程目录</em><br>##3.2   Android的UI界面的实现<br>在Android中的设计框架中,采用了MVC的设计思想,所有的布局和业务逻辑分离,这是一种非常高效的设计模式.所有的控件都可以在设计器中使用组件树可视化设计出界面,还可以在xm文件中对界面进行微调,做精细化处理.</p>
-<p>在这个项目中主要使用到了 LinerLayout和FrameLayout。LinearLayout是一种线性的布局，它有 水平和垂直两种方式；FrameLayout是一种帧布局，它是一层一层的布局。<br>Relativelayout（相对布局），实际应用中这个布局更灵活，它可以设定各个控件之间的对齐和排列关系，适合编写复杂的界面。有了Layout 的存在，控件和控件之间不再是独立地存在，而是更有机地结合在一起，设定起来也更为方便。</p>
-<p>在本程序中布局文件一共用到了如图3_2所示的布局文件<br><img src="./android/Layout.png" alt="布局文件"><br><em>图 3_2 布局文件图</em></p>
-<p>期中list_layout.xml用来显示每一行视频的信息包含 视频的图片,名字,大小,时长;layout_pull_to_refresh.xml用来显示listView下拉的头部(里面包含了刷新动画);activity_play.xml使用主要使用Framlayout显示VideoVie为视频播放提供界面;<br>activity_main.xml显示了打开的主界面,包含一个listView显示,和下拉刷新头部.</p>
-<p>##3.3 主界面功能实现<br>第一次打开会想手机申请访问外部存储权限,并提示下拉刷新内容<br>期中申请权限的代码如下,先在AndroidManifest.xml中添加<code>&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;</code></p>
-<p>然后在MainAtivity.java中申请权限</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">check</span><span class="params">(Activity activity)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 要申请的权限列表</span></span><br><span class="line">        <span class="keyword">final</span> String[] permissions = &#123;</span><br><span class="line">                Manifest.permission.WRITE_EXTERNAL_STORAGE,</span><br><span class="line">                Manifest.permission.INTERNET,</span><br><span class="line">                Manifest.permission.CAMERA</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检查本应用是否有了 WRITE_EXTERNAL_STORAGE 权限</span></span><br><span class="line">        <span class="keyword">if</span> (ContextCompat.checkSelfPermission(activity, permissions[<span class="number">0</span>])</span><br><span class="line">                != PackageManager.PERMISSION_GRANTED)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 系统将弹出一个对话框，询问用户是否授权</span></span><br><span class="line">            ActivityCompat.requestPermissions(activity, permissions, <span class="number">17</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p>@import “./android/firstrun.jpg” {height=”500px”}</p>
-<p><em>图 3_3第一次运行效果图</em></p>
-<h2 id="3-3-1每一项视频的布局"><a href="#3-3-1每一项视频的布局" class="headerlink" title="3.3.1每一项视频的布局"></a>3.3.1每一项视频的布局</h2><p>布局结果如图3_3 视频信息布局<br><img src="./android/list_layout.png" alt="图片"><br><em>图3_3 视频信息布局</em></p>
-<p>新建list_layout.xml布局内容如图3_3_1 视频信息组件布局树<br>@import “./android/list_item.png”<br><em>图3_3_1 视频信息组件布局树</em><br>##3.3.2头部动画布局<br>实现布局如图3_4 刷新头部文件<br><img src="./android/head.png" alt="刷新头"><br><em>图3_4 刷新头部文件</em><br>布局组件树如图3_5 刷新头部布局</p>
-<p><img src="./android/head_layout.png" alt="ssdw"><br><em>3_5 刷新头部布局</em> </p>
-<p>##3.3.2视频播放界面设计<br>播放界面设计如图3_3_2 播放界面设计<br><img src="./android/player.png" alt="播放界面"><br><em>图3_3_2 播放界面设计</em><br>播放界面布局组件树如图 3_3_2_1 播放界面组件树<br><img src="./android/player_layout.png" alt="播放"><br><em>图3_3_2 _1播放界面设计</em></p>
-<p>##3.3.3首页的布局设计<br>首页的设计主要是将头文件和listView放到这个Activity中,手下要吧activity的的头部隐藏起来,这里使用的方法是将他移出可见范围.设计界面图3_3_3 首页界面的设计<br><img src="./android/index.png" alt="首页"><br><em>图3_3_3 首页界面的设计</em><br>首页的布局<br><img src="./android/index_layout.png" alt="首页布局"><br>图3_3_3_1 首页布局</p>
-<p>到这里就几乎完成了界面的设计部分<br>#3.4.功能的具体实现步骤</p>
-<h2 id="3-4-1播放功能的实现"><a href="#3-4-1播放功能的实现" class="headerlink" title="3.4.1播放功能的实现"></a>3.4.1播放功能的实现</h2><p><strong>播放视频</strong>使用的是Android的VideoView实现的,主要用到了以下方法</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>public void setVideoPath (String path)</td>
-<td>设置视频的路径</td>
-</tr>
-<tr>
-<td>public void start ()</td>
-<td>开始播放视频</td>
-</tr>
-</tbody></table>
-<p><strong>视频的控制</strong>视频控制使用的是MediaConller,在安卓中使用MediaController控制媒体的播放也非常的简单只需要如下:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mController=<span class="keyword">new</span> MediaController(<span class="keyword">this</span>);</span><br><span class="line">videoView.setMediaController(mController);</span><br><span class="line">mController.setMediaPlayer(videoView);</span><br></pre></td></tr></table></figure>
-<p>MediaController只能提供一些简单的控制方法,所以在视频播放中,我加入了手势的控制.手势的控制需要implements GestureDetector.OnGestureListener接口,在接口的onFling方法实现手势的控制</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> current=videoView.getCurrentPosition();</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span>(e2.getX()-e1.getX()&gt;<span class="number">0</span>)</span><br><span class="line">       videoView.seekTo(current+<span class="number">5000</span>);</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span>(e2.getX()-e1.getX()&lt;<span class="number">0</span>)</span><br><span class="line">           videoView.seekTo(current-<span class="number">5000</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
-<p>##3.4.2数据存储的实现<br>在Android系统中如果一个任务超过5秒还未结束,那么系统就会提示用户强制结束,因为文件的存储是一个耗时的任务,所以得单独开一个线程来完成,这里用到了Android 异步线程来对外部存储进行遍历.异步线程返回时在onPostExecute方法中将视频信息存入数据库,并调用handler来更新界面.<br>核心代码:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> List&lt;VideoInfo&gt; <span class="title">doInBackground</span><span class="params">(Void... voids)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       videoInfos=getVideoFile(videoInfos, Environment.getExternalStorageDirectory());</span><br><span class="line">       videoInfos=filterVideo(videoInfos);</span><br><span class="line">       Log.d(<span class="string">"tga"</span>,<span class="string">"最后的大小"</span>+videoInfos.size());</span><br><span class="line">       <span class="keyword">return</span> videoInfos;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostExecute</span><span class="params">(List&lt;VideoInfo&gt; videoInfo)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//保视频文件文件到数据库</span></span><br><span class="line">       saveVideoInfoToDb(videoInfos);</span><br><span class="line">       <span class="comment">//交给handler从数据库更新界面list</span></span><br><span class="line">       Message msg =<span class="keyword">new</span> Message();</span><br><span class="line">       msg.what=<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">new</span> MyHandler(context).sendMessage(msg);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-4-2-1视频缩略图的获得"><a href="#3-4-2-1视频缩略图的获得" class="headerlink" title="3.4.2.1视频缩略图的获得"></a>3.4.2.1视频缩略图的获得</h3><p>使用MediaMetadataRetriever来获得随机获得一帧Bitmap,再通过bitmap2File函数转成图像文件。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Bitmap <span class="title">getVideoThumbnail</span><span class="params">(String filePath)</span> </span>&#123;</span><br><span class="line">        Bitmap bitmap = <span class="keyword">null</span>;</span><br><span class="line">        MediaMetadataRetriever retriever = <span class="keyword">new</span> MediaMetadataRetriever();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            retriever.setDataSource(filePath);</span><br><span class="line">            bitmap = retriever.getFrameAtTime();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span>(IllegalArgumentException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                retriever.release();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">bitmap2File</span><span class="params">(Bitmap bitmap, String name)</span> </span>&#123;</span><br><span class="line">    File f = <span class="keyword">new</span> File(Environment.getExternalStorageDirectory() +<span class="string">"/image_"</span> +name + <span class="string">".jpg"</span>);</span><br><span class="line">     <span class="keyword">if</span> (f.exists()) f.delete();</span><br><span class="line">    FileOutputStream fOut = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        fOut = <span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">        bitmap.compress(Bitmap.CompressFormat.JPEG, <span class="number">100</span>, fOut);</span><br><span class="line">        fOut.flush();</span><br><span class="line">        fOut.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f.getAbsolutePath();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-4-2-2视频遍历的过程"><a href="#3-4-2-2视频遍历的过程" class="headerlink" title="3.4.2.2视频遍历的过程"></a>3.4.2.2视频遍历的过程</h3><p>使用递归的方式来扫面设备中的.mp4文件,期中视频<strong>名字，大小,时长</strong>等使用的是Java文件的相关操作</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> List&lt;VideoInfo&gt; <span class="title">getVideoFile</span><span class="params">(<span class="keyword">final</span> List&lt;VideoInfo&gt; list, File file)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        file.listFiles(<span class="keyword">new</span> FileFilter()</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                String name = file.getName();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">int</span> i = name.indexOf(<span class="string">'.'</span>);</span><br><span class="line">                <span class="keyword">if</span> (i != -<span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    name = name.substring(i);</span><br><span class="line">                    <span class="keyword">if</span> (name.equalsIgnoreCase(<span class="string">".mp4"</span>))</span><br><span class="line">                    &#123;</span><br><span class="line">                        VideoInfo video = <span class="keyword">new</span> VideoInfo();</span><br><span class="line">                        file.getUsableSpace();</span><br><span class="line"></span><br><span class="line">                            <span class="comment">//设置视频缩略图</span></span><br><span class="line">                            Bitmap thumbnail = getVideoThumbnail(file.getAbsolutePath());</span><br><span class="line">                            String img_path = bitmap2File(thumbnail, file.getName());</span><br><span class="line">                            video.setThumbnail(img_path);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">//设置视频时间长度</span></span><br><span class="line">                        String time=getDurationLong(file.getPath());</span><br><span class="line">                        video.setTime(time);</span><br><span class="line">                        <span class="comment">//设置视频名,和播放路径</span></span><br><span class="line">                        video.setDisplayName(file.getName());</span><br><span class="line">                        video.setPath(file.getAbsolutePath());</span><br><span class="line">                        <span class="comment">//设置文件大小size</span></span><br><span class="line">                        String size =getSize(file.getPath());</span><br><span class="line">                        video.setSize(size);</span><br><span class="line">                        Log.d(<span class="string">"tga"</span>,<span class="string">"name"</span>+video.getPath());</span><br><span class="line">                        list.add(video);</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//判断是不是目录</span></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (file.isDirectory()) &#123;</span><br><span class="line">                    getVideoFile(list, file);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-5-动画的实现"><a href="#3-5-动画的实现" class="headerlink" title="3.5.动画的实现"></a>3.5.动画的实现</h2><p>我使用的是FrameAnimation,首先将一张gif图片分成一帧一帧的图片,放到Drawble目录下再建一个animation_src.xml的文件<br><img src="./android/animation.png" alt="animation"><br><em>图5_1动画的实现</em><br>在xml文件中添加</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">animation-list</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:oneshot</span>=<span class="string">"false"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame01"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame02"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame03"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame04"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame05"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame06"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame07"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame08"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame09"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame10"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@drawable/frame11"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">animation-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>动画的实现使用方法，在RefreshableView。java中添加:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">arrow = (ImageView) header.findViewById(R.id.arrow);</span><br><span class="line">animationDrawable = (AnimationDrawable) arrow.getBackground();</span><br></pre></td></tr></table></figure>
-<h2 id="3-6为ListView写适配器"><a href="#3-6为ListView写适配器" class="headerlink" title="3.6为ListView写适配器"></a>3.6为ListView写适配器</h2><p>为ListView写一个适配器来显示数据主要是继承抽象类BaseAdapter</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">getView</span><span class="params">(<span class="keyword">int</span> position, View convertView, ViewGroup parent)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ViewHolder viewHodler;</span><br><span class="line">        <span class="keyword">if</span>(convertView==<span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            convertView = <span class="keyword">this</span>.mInflater.inflate(R.layout.list_layout, <span class="keyword">null</span>); <span class="comment">//加载布局</span></span><br><span class="line">            viewHodler = <span class="keyword">new</span> ViewHolder();</span><br><span class="line"></span><br><span class="line">            viewHodler.name = (TextView)convertView.findViewById(R.id.name) ;</span><br><span class="line">            viewHodler.time = (TextView) convertView.findViewById(R.id.time);</span><br><span class="line">            viewHodler.path = (TextView) convertView.findViewById(R.id.path);</span><br><span class="line">            viewHodler.size = (TextView) convertView.findViewById(R.id.size);</span><br><span class="line">            viewHodler.Thumbnail=(ImageView) convertView.findViewById(R.id.tumb);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            convertView.setTag(viewHodler);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            viewHodler=(ViewHolder)convertView.getTag();</span><br><span class="line">        &#125;</span><br><span class="line">        VideoInfo bean = mList.get(position);</span><br><span class="line">        viewHodler.name.setText(bean.name);</span><br><span class="line">        viewHodler.time.setText(bean.time);</span><br><span class="line">        viewHodler.path.setText(bean.path);</span><br><span class="line">        viewHodler.size.setText(bean.size);</span><br><span class="line">        Uri uri = Uri.parse(bean.Thumbnail);</span><br><span class="line">        viewHodler.Thumbnail.setImageURI(uri);</span><br><span class="line">        <span class="keyword">return</span> convertView;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-7-显示当前的网络状况"><a href="#3-7-显示当前的网络状况" class="headerlink" title="3.7.显示当前的网络状况"></a>3.7.显示当前的网络状况</h2><p>这里使用了广播来监听网络状况.首先在在AndroidManifest.xml中添加权限<code>&lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt;
-    &lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot; /&gt;</code><br>写一个类ConnectReceiver来监听网络状态.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConnectReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);</span><br><span class="line">        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(networkInfo!=<span class="keyword">null</span> &amp;&amp; networkInfo.getType()== ConnectivityManager.TYPE_WIFI)&#123;</span><br><span class="line">            Toast.makeText(context,<span class="string">"now is wifi"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(networkInfo!=<span class="keyword">null</span> &amp;&amp; networkInfo.getType()== ConnectivityManager.TYPE_MOBILE)&#123;</span><br><span class="line">            Toast.makeText(context,<span class="string">"now is 移动数据"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            Toast.makeText(context,<span class="string">"没有网络"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-8-打开系统相册内的视频"><a href="#3-8-打开系统相册内的视频" class="headerlink" title="3.8.打开系统相册内的视频"></a>3.8.打开系统相册内的视频</h2><p>这个播放器处理可以扫面存储设备内的视频文件,还可以调用系统相册的视频文件,在视频播放界面点击右上角的按钮,就可以打开系统的相册.这里实现的方式是intent</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openFile</span><span class="params">(View view)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       Intent intent = <span class="keyword">new</span> Intent( Intent.ACTION_GET_CONTENT);</span><br><span class="line">       intent.setType(<span class="string">"video/*"</span>); <span class="comment">// 只显示视频</span></span><br><span class="line">       startActivityForResult(intent, REQ_OPEN_FILE);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从媒体管理器返回</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(requestCode == REQ_OPEN_FILE)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">if</span>(resultCode == RESULT_OK)</span><br><span class="line">           &#123;</span><br><span class="line">               Uri mediaUri = data.getData();</span><br><span class="line">               videoView.setVideoURI(mediaUri);</span><br><span class="line">               videoView.start();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="4-系统测试"><a href="#4-系统测试" class="headerlink" title="4.系统测试"></a>4.系统测试</h1><h2 id="4-1测试目的"><a href="#4-1测试目的" class="headerlink" title="4.1测试目的"></a>4.1测试目的</h2><p>(1)确认软件的质量，确保软件能正常运行，并且达到了期待中的效果<br>(2)确认信息的安全性,最大可能确保软件在实际应用中的稳定性.</p>
-<h2 id="4-2-测试内容和结果"><a href="#4-2-测试内容和结果" class="headerlink" title="4.2 测试内容和结果"></a>4.2 测试内容和结果</h2><p>@import “./android/demo2.jpg”  {height=500px}<br>@import “./android/demo11.jpeg” {height=500px}</p>
-<p>@import “./android/demo.jpg”</p>
-<p><strong>通过测试发现功能没有问题,可以正常刷新出文件,打开系统相册以及播放视频.</strong></p>
-<h1 id="4-3-完善工作"><a href="#4-3-完善工作" class="headerlink" title="4.3.完善工作"></a>4.3.完善工作</h1><p>给软件换上一个好看的icon,这个实现起来很简单只需要在AndroidManifest.xml中的 <code>android:icon=&quot;@drawable/icon&quot;</code>中添加喜欢的icon就可以了,icon放在drawble下.</p>
-<p>#5. 总结及收获体会<br><strong>难点</strong>：sqlite无法大批量存储视频的缩略图；<strong>处理方法</strong>：将缩略图保存到内存上,将图片地址存入数据库。</p>
-<p><strong>总结体会：：</strong><br>时光荏苒，转眼间就要迈入大四，本学期的Android应用开发是对这三年的知识的一次测试，里面使用到了大一的程序语言知识 、 面向对象概念，大二的数据结构算法，Java语言基础，以及大三的数据库原理、操作系统原理等知识。一个高性能界面美丽的系统离不开基础只是的积累。</p>
-<p><strong>改进方案：</strong><br>由于能力以及时间的限制本软件还存在许多的不足之处，目前尚未支持网络资源的播放，其实Android的VideoView本身支持网络资源的播放，所以只需要为程序添加网络全县，并设置接受外部分享，就能实现。</p>
-]]></content>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h2><p><strong>bubbleSort.c</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> keys[], <span class="keyword">int</span> n, <span class="keyword">int</span> asc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> exchange = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n &amp;&amp; exchange; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        exchange = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n - i; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (asc ? keys[j] &gt; keys[j + <span class="number">1</span>] : keys[j] &lt; keys[j + <span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                swap(keys, j, j + <span class="number">1</span>);</span><br><span class="line">                exchange = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>冒泡排序</tag>
+        <tag>bubbleSort</tag>
+      </tags>
   </entry>
   <entry>
-    <title>post title with whitespace</title>
-    <url>/2019/12/12/post-title-with-whitespace/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2019/12/12/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
+    <title>输出100内的素数</title>
+    <url>/2019/12/12/%E8%BE%93%E5%87%BA100%E5%86%85%E7%9A%84%E7%B4%A0%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="输出100内素数的C语言实现"><a href="#输出100内素数的C语言实现" class="headerlink" title="输出100内素数的C语言实现"></a>输出100内素数的C语言实现</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义:"></a>定义:</h2><blockquote>
+<p>素数(质数)在大于1的自然数中，除了1和该数自身外，无法被其他自然数整除的数</p>
+</blockquote>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路:"></a>思路:</h2><ol>
+<li>假定一个大于1的整数n是素数(从2开始)</li>
+<li>那么n%i(i=2,3,.,.,.,n-1)都不等于0,那么这个数字是素数.</li>
+<li>输出数字n.</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h2><p><strong>isPrime.c</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="number">100</span>; i++)</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">int</span> isPrime = <span class="number">1</span>;<span class="comment">//假设i是素数</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j &lt; i; j++)</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="keyword">if</span> (i % j == <span class="number">0</span>)<span class="comment">//不满足素数条件</span></span><br><span class="line">          &#123;</span><br><span class="line">              isPrime = <span class="number">0</span>;<span class="comment">//确认这个数不是素数</span></span><br><span class="line">              <span class="keyword">break</span>;<span class="comment">//跳出这个循环</span></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (isPrime)<span class="comment">//判断i是不是素数</span></span><br><span class="line">      &#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
   </entry>
 </search>
