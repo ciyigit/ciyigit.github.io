@@ -46,20 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="冒泡算法排序 冒泡算法是一种交换排序,每一次将最大&#x2F;最小的数字 移动到末尾 思考: 假设有n个数,每次遍历将最大&#x2F;最小的数字交换到最后. 对剩下的n-1个数重复1的步骤. 当只剩下一个数字,或者某次遍历过程未发生交换时,排序结束.   代码:bubbleSort.c12345678910111213141516void bubbleSort(int keys[], int n, int asc)&amp;">
+  <meta name="description" content="Fibonacci数列定义:    1 1 2 3 5 8 ….           从第3项开始，每一项都等于前两项之和。  表达式: f(i)&#x3D;\begin{cases} 1 &amp; i&#x3D;1,2\\  f(i-1)+f(i-2)&amp; i&gt;2  \end{cases}C语言递归实现通过定义可以容易写出fibinacci数列递归形式123456789101112131415161718192021222">
 <meta property="og:type" content="article">
-<meta property="og:title" content="冒泡排序C语言实现">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95&#x2F;index.html">
+<meta property="og:title" content="求Fibonacci数列的两种实现方式">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;fibonacci&#x2F;index.html">
 <meta property="og:site_name" content="为人民服务">
-<meta property="og:description" content="冒泡算法排序 冒泡算法是一种交换排序,每一次将最大&#x2F;最小的数字 移动到末尾 思考: 假设有n个数,每次遍历将最大&#x2F;最小的数字交换到最后. 对剩下的n-1个数重复1的步骤. 当只剩下一个数字,或者某次遍历过程未发生交换时,排序结束.   代码:bubbleSort.c12345678910111213141516void bubbleSort(int keys[], int n, int asc)&amp;">
-<meta property="article:published_time" content="2019-12-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-12-13T03:02:20.848Z">
+<meta property="og:description" content="Fibonacci数列定义:    1 1 2 3 5 8 ….           从第3项开始，每一项都等于前两项之和。  表达式: f(i)&#x3D;\begin{cases} 1 &amp; i&#x3D;1,2\\  f(i-1)+f(i-2)&amp; i&gt;2  \end{cases}C语言递归实现通过定义可以容易写出fibinacci数列递归形式123456789101112131415161718192021222">
+<meta property="article:published_time" content="2019-12-13T03:02:43.859Z">
+<meta property="article:modified_time" content="2019-12-13T05:53:10.534Z">
 <meta property="article:author" content="吴才益">
-<meta property="article:tag" content="冒泡排序">
-<meta property="article:tag" content="bubbleSort">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/12/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="http://yoursite.com/2019/12/13/fibonacci/">
 
 
 <script id="page-configurations">
@@ -71,7 +69,7 @@
   };
 </script>
 
-  <title>冒泡排序C语言实现 | 为人民服务</title>
+  <title>求Fibonacci数列的两种实现方式 | 为人民服务</title>
   
 
 
@@ -208,7 +206,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/12/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/13/fibonacci/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -221,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          冒泡排序C语言实现
+          求Fibonacci数列的两种实现方式
         </h1>
 
         <div class="post-meta">
@@ -230,16 +228,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-12-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-12T00:00:00+08:00">2019-12-12</time>
+              <time title="Created: 2019-12-13 11:02:43 / Modified: 13:53:10" itemprop="dateCreated datePublished" datetime="2019-12-13T11:02:43+08:00">2019-12-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-13 11:02:20" itemprop="dateModified" datetime="2019-12-13T11:02:20+08:00">2019-12-13</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -263,15 +255,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="冒泡算法排序"><a href="#冒泡算法排序" class="headerlink" title="冒泡算法排序"></a>冒泡算法排序</h1><blockquote>
-<p>冒泡算法是一种交换排序,每一次将最大/最小的数字 移动到末尾</p>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考:"></a>思考:</h2><ol>
-<li>假设有n个数,每次遍历将最大/最小的数字交换到最后.</li>
-<li>对剩下的n-1个数重复1的步骤.</li>
-<li>当只剩下一个数字,或者某次遍历过程未发生交换时,排序结束.</li>
-</ol>
+        <h1 id="Fibonacci数列"><a href="#Fibonacci数列" class="headerlink" title="Fibonacci数列"></a>Fibonacci数列</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义:"></a>定义:</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>5</th>
+<th>8</th>
+<th>….</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>从第3项开始，每一项都等于前两项之和。</p>
 </blockquote>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h2><p><strong>bubbleSort.c</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> keys[], <span class="keyword">int</span> n, <span class="keyword">int</span> asc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> exchange = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n &amp;&amp; exchange; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        exchange = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n - i; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (asc ? keys[j] &gt; keys[j + <span class="number">1</span>] : keys[j] &lt; keys[j + <span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                swap(keys, j, j + <span class="number">1</span>);</span><br><span class="line">                exchange = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>表达式:</strong></p>
+<script type="math/tex; mode=display">f(i)=\begin{cases}
+1 & i=1,2\\
+ f(i-1)+f(i-2)& i>2 
+\end{cases}</script><h2 id="C语言递归实现"><a href="#C语言递归实现" class="headerlink" title="C语言递归实现"></a>C语言递归实现</h2><p>通过定义可以容易写出fibinacci数列递归形式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Fib</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i == <span class="number">0</span> || i == <span class="number">1</span>)<span class="comment">//数组从下标0开始</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> Fib(i - <span class="number">1</span>) + Fib(i - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> f[<span class="number">20</span>];</span><br><span class="line">    <span class="comment">// 设值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        f[i] = Fib(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 打印输出</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">20</span>; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, f[j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h2><p>在某些时刻,递归思考起来很简答,但是它的效率不高.<br>如果能直接获得前两项的值$f(i-1)和f(i-2)$而不是一层一层的递归下去求解,那么效率明显会提高.<br>设数组$a[i]=a[i-1]+a[i-2]$是不是和上面的式子很像.但这里数组可以直接通过下标取值,不需要一层一层递归下区求解</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> f[<span class="number">20</span>];</span><br><span class="line">    <span class="comment">// 设置前两项的值</span></span><br><span class="line">    f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    f[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 设置</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="number">20</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        f[i]=f[i<span class="number">-1</span>]+f[i<span class="number">-2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 打印输出</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">20</span>; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, f[j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>如果你对递归和非递归的效率问题还不是很理解,当你把上面代码中的求前20项的数值改大一些你就能感受到二者的效率差别.</p>
 
     </div>
 
@@ -280,10 +294,6 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" rel="tag"># 冒泡排序</a>
-              <a href="/tags/bubbleSort/" rel="tag"># bubbleSort</a>
-          </div>
 
         
 
@@ -291,13 +301,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/12/12/%E8%BE%93%E5%87%BA100%E5%86%85%E7%9A%84%E7%B4%A0%E6%95%B0/" rel="prev" title="输出100内的素数">
-      <i class="fa fa-chevron-left"></i> 输出100内的素数
+    <a href="/2019/12/12/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="prev" title="冒泡排序C语言实现">
+      <i class="fa fa-chevron-left"></i> 冒泡排序C语言实现
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/12/13/fibonacci/" rel="next" title="求Fibonacci数列的两种实现方式">
-      求Fibonacci数列的两种实现方式 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -357,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#冒泡算法排序"><span class="nav-number">1.</span> <span class="nav-text">冒泡算法排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">1.1.</span> <span class="nav-text">思考:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.2.</span> <span class="nav-text">代码:</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Fibonacci数列"><span class="nav-number">1.</span> <span class="nav-text">Fibonacci数列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C语言递归实现"><span class="nav-number">1.2.</span> <span class="nav-text">C语言递归实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归实现"><span class="nav-number">1.3.</span> <span class="nav-text">非递归实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#end"><span class="nav-number">1.4.</span> <span class="nav-text">end</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -495,6 +502,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
