@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C语言判断一个字符串是不是回文</title>
+    <url>/2019/12/14/Palindrome/</url>
+    <content><![CDATA[<h1 id="回文"><a href="#回文" class="headerlink" title="回文"></a>回文</h1><h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><p>回文一般指 从前往后和从后往前读的顺序一样 比如一个回文字符串 “ABCBA”</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>一般横容易想到下面的方法：<br><img src="/2019/12/14/Palindrome/1.png" class=""><br>就是从头和尾开始依次比较<br><strong><a href="/2019/12/14/Palindrome/isPalindrome.c" title="代码">代码</a></strong><br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> times = n/<span class="number">2</span>;<span class="comment">//比较的次数</span></span><br><span class="line">    <span class="keyword">char</span> *first = str;<span class="comment">//指向头</span></span><br><span class="line">    <span class="keyword">char</span> *<span class="built_in">end</span> = str + n - <span class="number">1</span>;<span class="comment">//指向尾</span></span><br><span class="line">    <span class="keyword">while</span> (times)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (*first != *<span class="built_in">end</span>)<span class="comment">//头尾内容是否一致</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//不是回文</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//移动到下一个位置</span></span><br><span class="line">        first ++;</span><br><span class="line">        <span class="built_in">end</span> --;</span><br><span class="line">        times--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//是回文</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c语言</tag>
+        <tag>回文</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>求Fibonacci数列的两种实现方式</title>
     <url>/2019/12/13/fibonacci/</url>
     <content><![CDATA[<h1 id="Fibonacci数列"><a href="#Fibonacci数列" class="headerlink" title="Fibonacci数列"></a>Fibonacci数列</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义:"></a>定义:</h2><div class="table-container">
