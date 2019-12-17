@@ -204,6 +204,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/web%E7%A6%81%E6%AD%A2%E5%A4%9A%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%8C%E6%97%B6%E7%99%BB%E5%BD%95%E4%B8%80%E4%B8%AA%E8%B4%A6%E5%8F%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="吴才益">
+      <meta itemprop="description" content="南京工程学院-2020届-本科">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="为人民服务">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/17/web%E7%A6%81%E6%AD%A2%E5%A4%9A%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%8C%E6%97%B6%E7%99%BB%E5%BD%95%E4%B8%80%E4%B8%AA%E8%B4%A6%E5%8F%B7/" class="post-title-link" itemprop="url">web禁止多个客户端同时登录一个账号</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-17 00:00:00 / Modified: 18:41:17" itemprop="dateCreated datePublished" datetime="2019-12-17T00:00:00+08:00">2019-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>你一定知道QQ以前不能同时在两个客户端上登录（目前可以手机和电脑同时在线），那么在网站中如何实现这个功能呢。</p>
+<p>我这里使用的是session+application实现</p>
+<ol>
+<li>当用户首次登录时将session放到application中</li>
+<li>下一次登录时从application中找这个session如果存在，且当前的session和上一次不同(不同客户端)则：使前一次的session失效（上一个客户端退出），将新的session更新到application中。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">		response.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">		response.setContentType(<span class="string">"text/plain"</span>);</span><br><span class="line">		PrintWriter out = response.getWriter();</span><br><span class="line"></span><br><span class="line">		HttpSession session = request.getSession();</span><br><span class="line">		ServletContext application = <span class="keyword">this</span>.getServletContext();</span><br><span class="line">		String name = <span class="string">"admin"</span>;</span><br><span class="line">		String pwd = <span class="string">"123"</span>;</span><br><span class="line">		<span class="comment">// 从数据库中验证密码是否正确</span></span><br><span class="line">		<span class="keyword">if</span> (name == <span class="string">"admin"</span> &amp;&amp; pwd == <span class="string">"123"</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">"密码验证通过"</span>);</span><br><span class="line">			<span class="comment">// 获取上一个客户端session</span></span><br><span class="line">			HttpSession last = (HttpSession) application.getAttribute(name);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (last == <span class="keyword">null</span>) &#123;<span class="comment">// 在第一台客户端登录时</span></span><br><span class="line">				application.setAttribute(name, session);</span><br><span class="line">				System.out.println(<span class="string">"第一个客户端登录成功"</span>);</span><br><span class="line"></span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (last != session) &#123;<span class="comment">// 不是同一个客户端的的session设置之前的session失效（下线），更新application中的session</span></span><br><span class="line">				last.invalidate();</span><br><span class="line">				System.out.println(<span class="string">"第一个客户端下线"</span>);</span><br><span class="line">				application.setAttribute(name, session);</span><br><span class="line">				System.out.println(<span class="string">"第二个客户端登陆成功"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			out.write(<span class="string">"success"</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			out.write(<span class="string">"failure"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/Palindrome/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,7 +304,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-14 00:00:00 / Modified: 14:56:43" itemprop="dateCreated datePublished" datetime="2019-12-14T00:00:00+08:00">2019-12-14</time>
+              <time title="Created: 2019-12-14 00:00:00 / Modified: 15:32:08" itemprop="dateCreated datePublished" datetime="2019-12-14T00:00:00+08:00">2019-12-14</time>
             </span>
 
           
@@ -243,8 +318,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="回文"><a href="#回文" class="headerlink" title="回文"></a>回文</h1><h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><p>回文一般指 从前往后和从后往前读的顺序一样 比如一个回文字符串 “ABCBA”</p>
+          <h2 id="回文定义："><a href="#回文定义：" class="headerlink" title="回文定义："></a>回文定义：</h2><p>回文一般指 从前往后和从后往前读的顺序一样 比如一个回文字符串 “ABCBA”</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>一般横容易想到下面的方法：<br><img src="/2019/12/14/Palindrome/1.png" class=""><br>就是从头和尾开始依次比较<br><strong><a href="/2019/12/14/Palindrome/isPalindrome.c" title="代码">代码</a></strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> times = n/<span class="number">2</span>;<span class="comment">//比较的次数</span></span><br><span class="line">    <span class="keyword">char</span> *first = str;<span class="comment">//指向头</span></span><br><span class="line">    <span class="keyword">char</span> *<span class="built_in">end</span> = str + n - <span class="number">1</span>;<span class="comment">//指向尾</span></span><br><span class="line">    <span class="keyword">while</span> (times)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (*first != *<span class="built_in">end</span>)<span class="comment">//头尾内容是否一致</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//不是回文</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//移动到下一个位置</span></span><br><span class="line">        first ++;</span><br><span class="line">        <span class="built_in">end</span> --;</span><br><span class="line">        times--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//是回文</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/totalNum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="吴才益">
+      <meta itemprop="description" content="南京工程学院-2020届-本科">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="为人民服务">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/14/totalNum/" class="post-title-link" itemprop="url">C语言统计某个字符串中某个单词出现的次数</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-14 00:00:00 / Modified: 15:31:42" itemprop="dateCreated datePublished" datetime="2019-12-14T00:00:00+08:00">2019-12-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="strstr"><a href="#strstr" class="headerlink" title="strstr()"></a>strstr()</h2><blockquote>
+<p><code>char *strstr(const char *s1, const char *s2)</code>　在头文件<code>string.h</code>中，作用是返回字符串中首次出现子串的地址,没有找到返回NULL</p>
+</blockquote>
+<h2 id="思想："><a href="#思想：" class="headerlink" title="思想："></a>思想：</h2><ol>
+<li>在一个字符串str中找到指定单index词(strstr不返回NUll)，计数变量count++。</li>
+<li>修改str为index之后的字符串，重复（1）</li>
+<li>若在str中找不到index程序结束，输出结果<br><strong>代码</strong></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *p=<span class="string">"hellodfdfshellodsfaffehellodfafehellodfsdfg"</span>;</span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span> * index = <span class="built_in">strstr</span>(p,<span class="string">"hello"</span>);</span><br><span class="line">        <span class="keyword">if</span>(index==<span class="literal">NULL</span>)<span class="comment">//没有找到</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        count++;<span class="comment">//找到一次</span></span><br><span class="line">        <span class="comment">//修改p地址 p=这一次出现hello的地址+hello的长度</span></span><br><span class="line">        p=index+<span class="built_in">strlen</span>(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -591,20 +733,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

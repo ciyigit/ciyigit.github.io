@@ -46,16 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="南京工程学院-2020届-本科">
-<meta property="og:type" content="website">
-<meta property="og:title" content="为人民服务">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;bubbleSort&#x2F;index.html">
+  <meta name="description" content="strstr() char *strstr(const char *s1, const char *s2)　在头文件string.h中，作用是返回字符串中首次出现子串的地址,没有找到返回NULL  思想： 在一个字符串str中找到指定单index词(strstr不返回NUll)，计数变量count++。 修改str为index之后的字符串，重复（1） 若在str中找不到index程序结束，输出结果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言统计某个字符串中某个单词出现的次数">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;totalNum&#x2F;index.html">
 <meta property="og:site_name" content="为人民服务">
-<meta property="og:description" content="南京工程学院-2020届-本科">
+<meta property="og:description" content="strstr() char *strstr(const char *s1, const char *s2)　在头文件string.h中，作用是返回字符串中首次出现子串的地址,没有找到返回NULL  思想： 在一个字符串str中找到指定单index词(strstr不返回NUll)，计数变量count++。 修改str为index之后的字符串，重复（1） 若在str中找不到index程序结束，输出结果">
+<meta property="article:published_time" content="2019-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-12-14T07:31:42.226Z">
 <meta property="article:author" content="吴才益">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="统计单词">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/tags/bubbleSort/">
+<link rel="canonical" href="http://yoursite.com/2019/12/14/totalNum/">
 
 
 <script id="page-configurations">
@@ -63,11 +67,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>Tag: bubbleSort | 为人民服务</title>
+  <title>C语言统计某个字符串中某个单词出现的次数 | 为人民服务</title>
   
 
 
@@ -199,50 +203,113 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">bubbleSort
-          <small>Tag</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/totalNum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="吴才益">
+      <meta itemprop="description" content="南京工程学院-2020届-本科">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="为人民服务">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C语言统计某个字符串中某个单词出现的次数
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-14 00:00:00 / Modified: 15:31:42" itemprop="dateCreated datePublished" datetime="2019-12-14T00:00:00+08:00">2019-12-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <h2 id="strstr"><a href="#strstr" class="headerlink" title="strstr()"></a>strstr()</h2><blockquote>
+<p><code>char *strstr(const char *s1, const char *s2)</code>　在头文件<code>string.h</code>中，作用是返回字符串中首次出现子串的地址,没有找到返回NULL</p>
+</blockquote>
+<h2 id="思想："><a href="#思想：" class="headerlink" title="思想："></a>思想：</h2><ol>
+<li>在一个字符串str中找到指定单index词(strstr不返回NUll)，计数变量count++。</li>
+<li>修改str为index之后的字符串，重复（1）</li>
+<li>若在str中找不到index程序结束，输出结果<br><strong>代码</strong></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *p=<span class="string">"hellodfdfshellodsfaffehellodfafehellodfsdfg"</span>;</span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span> * index = <span class="built_in">strstr</span>(p,<span class="string">"hello"</span>);</span><br><span class="line">        <span class="keyword">if</span>(index==<span class="literal">NULL</span>)<span class="comment">//没有找到</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        count++;<span class="comment">//找到一次</span></span><br><span class="line">        <span class="comment">//修改p地址 p=这一次出现hello的地址+hello的长度</span></span><br><span class="line">        p=index+<span class="built_in">strlen</span>(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-12-12T00:00:00+08:00"
-              content="2019-12-12">
-          12-12
-        </time>
+    
+    
+    
+        <div class="reward-container">
+  <div>打赏一个</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="吴才益 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="吴才益 Alipay">
+        <p>Alipay</p>
       </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/12/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url">
-            <span itemprop="name">冒泡排序C语言实现</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-    </div>
   </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag"># C语言</a>
+              <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%8D%95%E8%AF%8D/" rel="tag"># 统计单词</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/13/fibonacci/" rel="prev" title="求Fibonacci数列的两种实现方式">
+      <i class="fa fa-chevron-left"></i> 求Fibonacci数列的两种实现方式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/14/Palindrome/" rel="next" title="C语言判断一个字符串是不是回文">
+      C语言判断一个字符串是不是回文 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
   
   
   
 
-  
-
+  </div>
 
 
           </div>
@@ -293,6 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#strstr"><span class="nav-number">1.</span> <span class="nav-text">strstr()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思想："><span class="nav-number">2.</span> <span class="nav-text">思想：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
