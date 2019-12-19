@@ -46,34 +46,28 @@
   };
 </script>
 
-  <meta name="description" content="回文定义：回文一般指 从前往后和从后往前读的顺序一样 比如一个回文字符串 “ABCBA” 实现一般横容易想到下面的方法：就是从头和尾开始依次比较代码12345678910111213141516171819int isPalindrome(char *str, int n)&amp;#123;    int times &#x3D; n&#x2F;2;&#x2F;&#x2F;比较的次数    char *first &#x3D; str;&#x2F;&#x2F;指向头">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C语言判断一个字符串是不是回文">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;Palindrome&#x2F;index.html">
+  <meta name="description" content="南京工程学院-2020届-本科">
+<meta property="og:type" content="website">
+<meta property="og:title" content="为人民服务">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;page&#x2F;3&#x2F;index.html">
 <meta property="og:site_name" content="为人民服务">
-<meta property="og:description" content="回文定义：回文一般指 从前往后和从后往前读的顺序一样 比如一个回文字符串 “ABCBA” 实现一般横容易想到下面的方法：就是从头和尾开始依次比较代码12345678910111213141516171819int isPalindrome(char *str, int n)&amp;#123;    int times &#x3D; n&#x2F;2;&#x2F;&#x2F;比较的次数    char *first &#x3D; str;&#x2F;&#x2F;指向头">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;Palindrome&#x2F;1.png">
-<meta property="article:published_time" content="2019-12-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-12-14T07:32:08.218Z">
+<meta property="og:description" content="南京工程学院-2020届-本科">
 <meta property="article:author" content="吴才益">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="回文">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;Palindrome&#x2F;1.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/12/14/Palindrome/">
+<link rel="canonical" href="http://yoursite.com/page/3/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true
+    isHome: true,
+    isPost: false
   };
 </script>
 
-  <title>C语言判断一个字符串是不是回文 | 为人民服务</title>
+  <title>为人民服务</title>
   
 
 
@@ -206,11 +200,11 @@
             
 
   <div class="posts-expand">
-      
+        
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/Palindrome/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/12/%E8%BE%93%E5%87%BA100%E5%86%85%E7%9A%84%E7%B4%A0%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -223,7 +217,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          C语言判断一个字符串是不是回文
+          
+            <a href="/2019/12/12/%E8%BE%93%E5%87%BA100%E5%86%85%E7%9A%84%E7%B4%A0%E6%95%B0/" class="post-title-link" itemprop="url">输出100内的素数</a>
         </h1>
 
         <div class="post-meta">
@@ -234,7 +229,18 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-14 00:00:00 / Modified: 15:32:08" itemprop="dateCreated datePublished" datetime="2019-12-14T00:00:00+08:00">2019-12-14</time>
+              <time title="Created: 2019-12-12 00:00:00 / Modified: 21:44:01" itemprop="dateCreated datePublished" datetime="2019-12-12T00:00:00+08:00">2019-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -248,63 +254,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="回文定义："><a href="#回文定义：" class="headerlink" title="回文定义："></a>回文定义：</h2><p>回文一般指 从前往后和从后往前读的顺序一样 比如一个回文字符串 “ABCBA”</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>一般横容易想到下面的方法：<br><img src="/2019/12/14/Palindrome/1.png" class=""><br>就是从头和尾开始依次比较<br><strong><a href="/2019/12/14/Palindrome/isPalindrome.c" title="代码">代码</a></strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> times = n/<span class="number">2</span>;<span class="comment">//比较的次数</span></span><br><span class="line">    <span class="keyword">char</span> *first = str;<span class="comment">//指向头</span></span><br><span class="line">    <span class="keyword">char</span> *<span class="built_in">end</span> = str + n - <span class="number">1</span>;<span class="comment">//指向尾</span></span><br><span class="line">    <span class="keyword">while</span> (times)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (*first != *<span class="built_in">end</span>)<span class="comment">//头尾内容是否一致</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//不是回文</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//移动到下一个位置</span></span><br><span class="line">        first ++;</span><br><span class="line">        <span class="built_in">end</span> --;</span><br><span class="line">        times--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//是回文</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <h1 id="输出100内素数的C语言实现"><a href="#输出100内素数的C语言实现" class="headerlink" title="输出100内素数的C语言实现"></a>输出100内素数的C语言实现</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义:"></a>定义:</h2><blockquote>
+<p>素数(质数)在大于1的自然数中，除了1和该数自身外，无法被其他自然数整除的数</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路:"></a>思路:</h2><ol>
+<li>假定一个大于1的整数n是素数(从2开始)</li>
+<li>那么n%i(i=2,3,.,.,.,n-1)都不等于0,那么这个数字是素数.</li>
+<li>输出数字n.</li>
+</ol>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h2><p><strong>isPrime.c</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="number">100</span>; i++)</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">int</span> isPrime = <span class="number">1</span>;<span class="comment">//假设i是素数</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j &lt; i; j++)</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="keyword">if</span> (i % j == <span class="number">0</span>)<span class="comment">//不满足素数条件</span></span><br><span class="line">          &#123;</span><br><span class="line">              isPrime = <span class="number">0</span>;<span class="comment">//确认这个数不是素数</span></span><br><span class="line">              <span class="keyword">break</span>;<span class="comment">//跳出这个循环</span></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (isPrime)<span class="comment">//判断i是不是素数</span></span><br><span class="line">      &#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, i);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
 
+      
     </div>
 
     
     
     
-        <div class="reward-container">
-  <div>打赏一个</div>
-  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    Donate
-  </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechatpay.png" alt="吴才益 WeChat Pay">
-        <p>WeChat Pay</p>
-      </div>
-      
-      <div style="display: inline-block;">
-        <img src="/images/alipay.png" alt="吴才益 Alipay">
-        <p>Alipay</p>
-      </div>
-
-  </div>
-</div>
-
-
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/c%E8%AF%AD%E8%A8%80/" rel="tag"># c语言</a>
-              <a href="/tags/%E5%9B%9E%E6%96%87/" rel="tag"># 回文</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/12/14/totalNum/" rel="prev" title="C语言统计某个字符串中某个单词出现的次数">
-      <i class="fa fa-chevron-left"></i> C语言统计某个字符串中某个单词出现的次数
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/12/17/web%E7%A6%81%E6%AD%A2%E5%A4%9A%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%8C%E6%97%B6%E7%99%BB%E5%BD%95%E4%B8%80%E4%B8%AA%E8%B4%A6%E5%8F%B7/" rel="next" title="web禁止多个客户端同时登录一个账号">
-      web禁止多个客户端同时登录一个账号 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
 
   </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
@@ -355,7 +335,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回文定义："><span class="nav-number">1.</span> <span class="nav-text">回文定义：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

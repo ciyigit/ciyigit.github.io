@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-17T10:41:17.866Z</updated>
+  <updated>2019-12-19T06:06:01.940Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>单例设计模式</title>
+    <link href="http://yoursite.com/2019/12/20/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://yoursite.com/2019/12/20/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2019-12-19T16:00:00.000Z</published>
+    <updated>2019-12-19T06:06:01.940Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="单例设计模式："><a href="#单例设计模式：" class="headerlink" title="单例设计模式："></a>单例设计模式：</h1><p>在一个程序中某个类的实例只会有一个，这样的设计模式叫单例设计模式。</p><p><strong>例：</strong> 一个游戏中所有的玩家公用一个游戏场景，那么可以将游戏场景设计为单列。<br><a id="more"></a></p><h2 id="如何设计一个单例模式"><a href="#如何设计一个单例模式" class="headerlink" title="如何设计一个单例模式"></a>如何设计一个单例模式</h2><p>要满足一个单例设计模式需要：</p><ol><li>将构造器私有化（不让外部来生成实例）</li><li>提供一个静态的该类对象（唯一的实例对象）。</li><li>向外提供一个静态的获取实例的方法getInstance（）<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2></li></ol><ul><li>饿汉式<br>饿汉式是一个未雨绸缪的方式，它提前准备好一个实例等着你来用。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleTon_hungry</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> SingleTon_hungry A = <span class="keyword">new</span> SingleTon_hungry();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">SingleTon_hungry</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleTon_hungry <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">SingleTon_hungry instance1 = SingleTon_hungry.getInstance();</span><br><span class="line">SingleTon_hungry instance2 = SingleTon_hungry.getInstance();</span><br><span class="line">System.out.println(instance1==instance2);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>懒汉式<br>懒汉式是第一次用到才会生成一个实例，后面直接返回该实例<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleTon_lazy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> SingleTon_lazy instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">SingleTon_lazy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> SingleTon_lazy <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">instance = <span class="keyword">new</span> SingleTon_lazy();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> instance;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">SingleTon_lazy instance1 = SingleTon_lazy.getInstance();</span><br><span class="line">SingleTon_lazy instance2 = SingleTon_lazy.getInstance();</span><br><span class="line">System.out.println(instance1 == instance2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2>在上面的两段代码中可以发现在懒汉式中的getInstance方法中添加了关键字synchronized,因为在多线程中懒汉模式是线程不安全的，如果有连个线程同时通过了if(instance==null)那么就会有两个不同的实例。<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>饿汉式线程安全，但是有点浪费资源，懒汉式可能会造成线程不安全，可以减少浪费。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;单例设计模式：&quot;&gt;&lt;a href=&quot;#单例设计模式：&quot; class=&quot;headerlink&quot; title=&quot;单例设计模式：&quot;&gt;&lt;/a&gt;单例设计模式：&lt;/h1&gt;&lt;p&gt;在一个程序中某个类的实例只会有一个，这样的设计模式叫单例设计模式。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;例：&lt;/strong&gt; 一个游戏中所有的玩家公用一个游戏场景，那么可以将游戏场景设计为单列。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="http://yoursite.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="饿汉式" scheme="http://yoursite.com/tags/%E9%A5%BF%E6%B1%89%E5%BC%8F/"/>
+    
+      <category term="懒汉式" scheme="http://yoursite.com/tags/%E6%87%92%E6%B1%89%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>web禁止多个客户端同时登录一个账号</title>
